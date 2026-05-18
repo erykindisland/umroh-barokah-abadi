@@ -275,7 +275,7 @@ section {
     justify-content: center;
     color: var(--text-light);
     overflow: hidden;
-    padding: 160px 0 100px 0; /* Comprehensive padding to clear nav and footer */
+    padding: 120px 0 100px 0; /* Reduced padding-top to raise content */
 }
 
 .hero-slider {
@@ -320,7 +320,7 @@ section {
 
 .hero-content {
     max-width: 800px;
-    margin-top: 40px; /* Force extra space from the top */
+    margin-top: 20px; /* Reduced margin-top to raise position further */
     animation: fadeInUp 1s ease forwards;
     position: relative;
     z-index: 5;
