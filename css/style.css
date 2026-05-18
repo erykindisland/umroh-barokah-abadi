@@ -269,13 +269,13 @@ section {
 /* Hero Section */
 .hero {
     position: relative;
-    height: 100vh;
-    min-height: 700px;
+    min-height: 100vh;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     color: var(--text-light);
     overflow: hidden;
-    padding-top: 140px;
+    padding: 160px 0 100px 0; /* Comprehensive padding to clear nav and footer */
 }
 
 .hero-slider {
@@ -320,7 +320,10 @@ section {
 
 .hero-content {
     max-width: 800px;
+    margin-top: 40px; /* Force extra space from the top */
     animation: fadeInUp 1s ease forwards;
+    position: relative;
+    z-index: 5;
 }
 
 .hero-badge {
@@ -349,9 +352,9 @@ section {
 }
 
 .hero p {
-    font-size: 1.25rem;
-    margin-bottom: 40px;
-    opacity: 0.9;
+    font-size: 1.15rem; /* Slightly smaller base for better fit */
+    margin-bottom: 30px;
+    opacity: 1;
     max-width: 700px;
 }
 
@@ -951,71 +954,7 @@ footer ul li a:hover {
     transform: scale(1.1);
 }
 
-#wa-menu {
-    margin-bottom: 15px;
-    padding: 20px;
-    width: 320px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    transform-origin: bottom right;
-    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-#wa-menu.hidden {
-    opacity: 0;
-    transform: scale(0.5);
-    pointer-events: none;
-}
-
-.wa-header {
-    margin-bottom: 15px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    padding-bottom: 10px;
-}
-
-.wa-header h4 {
-    color: var(--primary-color);
-    font-family: var(--font-main);
-    font-size: 1.1rem;
-}
-
-.wa-header p {
-    font-size: 0.85rem;
-    color: #666;
-}
-
-.wa-options {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.wa-option-btn {
-    text-align: left;
-    padding: 12px 15px;
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 10px;
-    cursor: pointer;
-    font-family: var(--font-main);
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: var(--transition);
-    color: var(--text-dark);
-}
-
-.wa-option-btn i {
-    color: #25d366;
-    font-size: 1.2rem;
-}
-
-.wa-option-btn:hover {
-    background: rgba(37, 211, 102, 0.1);
-    border-color: #25d366;
-}
+/* Floating WA Widget Styles (Simplified for direct link) */
 
 /* Animations */
 @keyframes fadeInUp {
@@ -1091,17 +1030,41 @@ footer ul li a:hover {
         padding: 60px 0;
     }
 
+    .hero {
+        padding-top: 140px; /* Robust space for mobile nav height */
+        padding-bottom: 60px;
+        height: auto;
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start; /* Start from top on mobile */
+    }
+
+    .hero-content {
+        margin-top: 0;
+    }
+
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+        line-height: 1.2;
     }
 
     .hero-cta {
         flex-direction: column;
         width: 100%;
+        gap: 12px;
     }
 
     .hero-cta .btn {
         width: 100%;
+        padding: 14px 20px;
+    }
+
+    .trust-indicators {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        text-align: center;
     }
 
     .section-header h2 {
@@ -1113,10 +1076,7 @@ footer ul li a:hover {
         gap: 40px;
     }
 
-    .wa-menu {
-        width: 90%;
-        right: 5%;
-    }
+    /* Removed legacy wa-menu media query */
 }
 
 /* Better mobile padding and typography */
