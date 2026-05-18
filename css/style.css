@@ -915,6 +915,41 @@ footer ul li a:hover {
     color: var(--gold-accent);
 }
 
+.wa-footer-link a, .email-footer-link a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-light);
+    transition: var(--transition);
+    padding: 8px 15px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wa-footer-link a i {
+    color: #25d366;
+    filter: drop-shadow(0 0 5px rgba(37, 211, 102, 0.5));
+}
+
+.wa-footer-link a:hover {
+    background: rgba(37, 211, 102, 0.15);
+    border-color: #25d366;
+    color: #25d366;
+    transform: translateX(5px);
+    box-shadow: 0 0 20px rgba(37, 211, 102, 0.2);
+}
+
+.email-footer-link a:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: var(--gold-accent);
+    color: var(--gold-accent);
+    transform: translateX(5px);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
 .footer-bottom {
     text-align: center;
     padding-top: 20px;
