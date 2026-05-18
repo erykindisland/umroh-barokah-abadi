@@ -114,7 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'alhijaz': '628881211529',
         'rabbani': '628881211529',
         'nusa': '628881211529',
-        'companions': '628881211529'
+        'companions': '628881211529',
+        'alnihaya': '628881211529'
     };
 
     const waMessages = {
@@ -122,7 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
         'alhijaz': 'Assalamu’alaikum, saya tertarik dan ingin mengamankan kursi untuk Paket Alhijaz Indowisata.',
         'rabbani': 'Assalamu’alaikum, mohon informasi lebih lanjut mengenai paket dari Rabbani Tour.',
         'nusa': 'Assalamu’alaikum, saya ingin mengetahui program kemitraan/paket menarik dari Nusa Travel.',
-        'companions': 'Assalamu’alaikum, saya ingin info mengenai program backpacker/milenial dari Umrah Companions.'
+        'companions': 'Assalamu’alaikum, saya ingin info mengenai program backpacker/milenial dari Umrah Companions.',
+        'alnihaya': 'Assalamu’alaikum, saya ingin menanyakan ketersediaan seat di Alnihaya Wisata Abadi.'
     };
 
     function bindWAButtons() {
@@ -141,20 +143,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     bindWAButtons();
 
-    // 4. Floating WA Widget Toggle
-    const waToggle = document.getElementById('wa-toggle');
-    const waMenu = document.getElementById('wa-menu');
-
-    waToggle.addEventListener('click', () => {
-        waMenu.classList.toggle('hidden');
-        if (waMenu.classList.contains('hidden')) {
-            waToggle.innerHTML = '<i class="ph-fill ph-whatsapp-logo"></i>';
-            waToggle.style.backgroundColor = '#25d366';
-        } else {
-            waToggle.innerHTML = '<i class="ph ph-x"></i>';
-            waToggle.style.backgroundColor = '#e53e3e';
-        }
-    });
+    // 4. Floating WA Widget (Direct Link handled by bindWAButtons)
+    // Legacy toggle logic removed for direct redirection
 
     // 5. Dynamic Quota Simulator (Urgency)
     // Reduce quota slightly over time to simulate live bookings
