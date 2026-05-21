@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://umroh.barokahabadi.web.id/sitemap.xml
