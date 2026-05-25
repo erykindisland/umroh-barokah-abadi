@@ -1,0 +1,27 @@
+{
+  "name": "umroh-barokah-abadi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erykindisland/umroh-barokah-abadi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/erykindisland/umroh-barokah-abadi/issues"
+  },
+  "homepage": "https://github.com/erykindisland/umroh-barokah-abadi#readme",
+  "devDependencies": {
+    "vite": "^8.0.14"
+  }
+}
