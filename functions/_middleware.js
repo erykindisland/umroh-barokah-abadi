@@ -9,6 +9,10 @@ export async function onRequest(context) {
     // Contoh: Hanya lindungi rute /api
     if (url.pathname.startsWith('/api')) {
       
+      // SIMULASI LOGIN LOKAL (Hanya untuk testing)
+      const mockLogin = url.searchParams.get('mock_login');
+      if (mockLogin === 'true') return await next();
+
       // Jika Anda menggunakan Cloudflare Access (Zero Trust), 
       // Cloudflare akan menyisipkan header 'CF-Access-Jwt-Assertion'.
       const accessJwt = request.headers.get('CF-Access-Jwt-Assertion');
