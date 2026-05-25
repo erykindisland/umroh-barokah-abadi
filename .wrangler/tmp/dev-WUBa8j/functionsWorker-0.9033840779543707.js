@@ -56,13 +56,13 @@ var require_checked_fetch = __commonJS({
 });
 
 // .wrangler/tmp/bundle-TN7T51/middleware-loader.entry.ts
-var import_checked_fetch15 = __toESM(require_checked_fetch());
+var import_checked_fetch16 = __toESM(require_checked_fetch());
 
 // wrangler-modules-watch:wrangler:modules-watch
 var import_checked_fetch = __toESM(require_checked_fetch());
 
 // .wrangler/tmp/bundle-TN7T51/middleware-insertion-facade.js
-var import_checked_fetch13 = __toESM(require_checked_fetch());
+var import_checked_fetch14 = __toESM(require_checked_fetch());
 
 // .wrangler/tmp/pages-txeKo0/functionsWorker-0.9033840779543707.mjs
 var import_checked_fetch2 = __toESM(require_checked_fetch(), 1);
@@ -93,7 +93,7 @@ var __toESM2 = /* @__PURE__ */ __name((mod, isNodeMode, target) => (target = mod
   mod
 )), "__toESM");
 var require_checked_fetch2 = __commonJS2({
-  "../.wrangler/tmp/bundle-m1qaXe/checked-fetch.js"() {
+  "../.wrangler/tmp/bundle-AbsGJd/checked-fetch.js"() {
     var urls = /* @__PURE__ */ new Set();
     function checkURL(request, init) {
       const url = request instanceof URL ? request : new URL(
@@ -122,6 +122,21 @@ var require_checked_fetch2 = __commonJS2({
   }
 });
 var import_checked_fetch3 = __toESM2(require_checked_fetch2());
+async function onRequestGet(context) {
+  const { env } = context;
+  const db = env.BAROKAH_DB;
+  try {
+    const { results } = await db.prepare("SELECT * FROM pendaftaran ORDER BY created_at DESC").all();
+    return new Response(JSON.stringify(results), {
+      headers: { "Content-Type": "application/json" }
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({ error: err.message }), { status: 500 });
+  }
+}
+__name(onRequestGet, "onRequestGet");
+__name2(onRequestGet, "onRequestGet");
+var import_checked_fetch22 = __toESM2(require_checked_fetch2());
 async function onRequestPost(context) {
   const { request, env } = context;
   const db = env.BAROKAH_DB;
@@ -156,7 +171,7 @@ async function onRequestPost(context) {
 }
 __name(onRequestPost, "onRequestPost");
 __name2(onRequestPost, "onRequestPost");
-var import_checked_fetch22 = __toESM2(require_checked_fetch2());
+var import_checked_fetch32 = __toESM2(require_checked_fetch2());
 async function onRequest(context) {
   const { env } = context;
   const db = env.BAROKAH_DB;
@@ -188,7 +203,7 @@ async function onRequest(context) {
 }
 __name(onRequest, "onRequest");
 __name2(onRequest, "onRequest");
-var import_checked_fetch32 = __toESM2(require_checked_fetch2());
+var import_checked_fetch4 = __toESM2(require_checked_fetch2());
 async function onRequest2(context) {
   try {
     const { request, next, env } = context;
@@ -218,6 +233,13 @@ __name(onRequest2, "onRequest2");
 __name2(onRequest2, "onRequest");
 var routes = [
   {
+    routePath: "/api/admin/list",
+    mountPath: "/api/admin",
+    method: "GET",
+    middlewares: [],
+    modules: [onRequestGet]
+  },
+  {
     routePath: "/api/register",
     mountPath: "/api",
     method: "POST",
@@ -239,10 +261,10 @@ var routes = [
     modules: []
   }
 ];
-var import_checked_fetch10 = __toESM2(require_checked_fetch2());
-var import_checked_fetch8 = __toESM2(require_checked_fetch2());
+var import_checked_fetch11 = __toESM2(require_checked_fetch2());
+var import_checked_fetch9 = __toESM2(require_checked_fetch2());
+var import_checked_fetch6 = __toESM2(require_checked_fetch2());
 var import_checked_fetch5 = __toESM2(require_checked_fetch2());
-var import_checked_fetch4 = __toESM2(require_checked_fetch2());
 function lexer(str) {
   var tokens = [];
   var i = 0;
@@ -697,7 +719,7 @@ var cloneResponse = /* @__PURE__ */ __name2((response) => (
     response
   )
 ), "cloneResponse");
-var import_checked_fetch6 = __toESM2(require_checked_fetch2());
+var import_checked_fetch7 = __toESM2(require_checked_fetch2());
 var drainBody = /* @__PURE__ */ __name2(async (request, env, _ctx, middlewareCtx) => {
   try {
     return await middlewareCtx.next(request, env);
@@ -714,7 +736,7 @@ var drainBody = /* @__PURE__ */ __name2(async (request, env, _ctx, middlewareCtx
   }
 }, "drainBody");
 var middleware_ensure_req_body_drained_default = drainBody;
-var import_checked_fetch7 = __toESM2(require_checked_fetch2());
+var import_checked_fetch8 = __toESM2(require_checked_fetch2());
 function reduceError(e) {
   return {
     name: e?.name,
@@ -742,7 +764,7 @@ var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_miniflare3_json_error_default
 ];
 var middleware_insertion_facade_default = pages_template_worker_default;
-var import_checked_fetch9 = __toESM2(require_checked_fetch2());
+var import_checked_fetch10 = __toESM2(require_checked_fetch2());
 var __facade_middleware__ = [];
 function __facade_register__(...args) {
   __facade_middleware__.push(...args.flat());
@@ -871,7 +893,7 @@ if (typeof middleware_insertion_facade_default === "object") {
 var middleware_loader_entry_default = WRAPPED_ENTRY;
 
 // node_modules/wrangler/templates/middleware/middleware-ensure-req-body-drained.ts
-var import_checked_fetch11 = __toESM(require_checked_fetch());
+var import_checked_fetch12 = __toESM(require_checked_fetch());
 var drainBody2 = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx) => {
   try {
     return await middlewareCtx.next(request, env);
@@ -890,7 +912,7 @@ var drainBody2 = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx
 var middleware_ensure_req_body_drained_default2 = drainBody2;
 
 // node_modules/wrangler/templates/middleware/middleware-miniflare3-json-error.ts
-var import_checked_fetch12 = __toESM(require_checked_fetch());
+var import_checked_fetch13 = __toESM(require_checked_fetch());
 function reduceError2(e) {
   return {
     name: e?.name,
@@ -921,7 +943,7 @@ var __INTERNAL_WRANGLER_MIDDLEWARE__2 = [
 var middleware_insertion_facade_default2 = middleware_loader_entry_default;
 
 // node_modules/wrangler/templates/middleware/common.ts
-var import_checked_fetch14 = __toESM(require_checked_fetch());
+var import_checked_fetch15 = __toESM(require_checked_fetch());
 var __facade_middleware__2 = [];
 function __facade_register__2(...args) {
   __facade_middleware__2.push(...args.flat());

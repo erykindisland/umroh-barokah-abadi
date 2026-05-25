@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Umroh Barokah Abadi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --bg: #0c1f36;
+            --card: #172a45;
+            --gold: #d4af37;
+            --text: #f8f9fa;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        h1 { margin: 0; font-size: 1.8rem; border-left: 4px solid var(--gold); padding-left: 15px; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); }
+        .stat-card h3 { margin: 0; opacity: 0.7; font-size: 0.9rem; margin-bottom: 10px; }
+        .stat-card p { margin: 0; font-size: 1.8rem; font-weight: 600; color: var(--gold); }
+
+        .table-wrapper { background: var(--card); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { background: rgba(0,0,0,0.2); padding: 20px; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; color: var(--gold); }
+        td { padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; }
+        tr:hover { background: rgba(255,255,255,0.02); }
+
+        .btn-refresh { background: var(--gold); border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .badge { padding: 4px 8px; border-radius: 5px; background: rgba(212, 175, 55, 0.1); color: var(--gold); font-size: 0.8rem; }
+        
+        .loading { text-align: center; padding: 50px; font-size: 1.2rem; opacity: 0.5; }
+        .empty { text-align: center; padding: 50px; opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Panel Database Jemaah</h1>
+            <button class="btn-refresh" onclick="fetchData()">
+                <i class="ph ph-arrows-clockwise"></i> Refresh Data
+            </button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Total Pendaftar</h3>
+                <p id="stat-total">-</p>
+            </div>
+            <div class="stat-card">
+                <h3>Update Terakhir</h3>
+                <p id="stat-date" style="font-size: 1rem; opacity: 0.8;">Baru saja</p>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table id="jemaah-table">
+                <thead>
+                    <tr>
+                        <th>Tangal</th>
+                        <th>Nama Jemaah</th>
+                        <th>WhatsApp</th>
+                        <th>Pilihan Paket</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <tr><td colspan="4" class="loading">Mengambil data jemaah...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        async function fetchData() {
+            const body = document.getElementById('table-body');
+            // Menambahkan mock_login=true agar bisa dites lokal
+            const url = '/api/admin/list' + (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '?mock_login=true' : '');
+            
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                document.getElementById('stat-total').innerText = data.length;
+                
+                if (data.length === 0) {
+                    body.innerHTML = '<tr><td colspan="4" class="empty">Belum ada jemaah yang mendaftar.</td></tr>';
+                    return;
+                }
+
+                body.innerHTML = data.map(j => `
+                    <tr>
+                        <td style="opacity: 0.6; font-size: 0.85rem;">${new Date(j.created_at).toLocaleDateString('id-ID')}</td>
+                        <td style="font-weight: 500;">${j.nama}</td>
+                        <td>
+                            <a href="https://wa.me/${j.whatsapp.replace(/[^0-9]/g, '')}" target="_blank" style="color: #48bb78; text-decoration: underline;">
+                                ${j.whatsapp}
+                            </a>
+                        </td>
+                        <td><span class="badge">${j.paket}</span><br><small style="opacity:0.6">${j.rencana_keberangkatan}</small></td>
+                    </tr>
+                `).join('');
+
+            } catch (err) {
+                body.innerHTML = '<tr><td colspan="4" class="empty" style="color: #fc8181">Gagal mengambil data: ' + err.message + '</td></tr>';
+            }
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>
