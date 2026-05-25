@@ -99,6 +99,42 @@ ul {
     margin-top: 2rem;
 }
 
+.text-tiny {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+.text-success {
+    color: var(--success-green);
+    font-weight: 500;
+}
+
+.input-group-modern {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.input-group-modern input {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.input-group-modern input:focus {
+    outline: none;
+    border-color: var(--gold-accent);
+    background: rgba(255, 255, 255, 0.15);
+}
+
 /* Buttons */
 .btn {
     display: inline-flex;

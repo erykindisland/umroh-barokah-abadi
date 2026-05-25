@@ -25,9 +25,9 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
-// ../.wrangler/tmp/bundle-wx53mp/checked-fetch.js
+// ../.wrangler/tmp/bundle-m1qaXe/checked-fetch.js
 var require_checked_fetch = __commonJS({
-  "../.wrangler/tmp/bundle-wx53mp/checked-fetch.js"() {
+  "../.wrangler/tmp/bundle-m1qaXe/checked-fetch.js"() {
     var urls = /* @__PURE__ */ new Set();
     function checkURL(request, init) {
       const url = request instanceof URL ? request : new URL(
@@ -55,8 +55,44 @@ var require_checked_fetch = __commonJS({
   }
 });
 
-// api/check-status.js
+// api/register.js
 var import_checked_fetch = __toESM(require_checked_fetch());
+async function onRequestPost(context) {
+  const { request, env } = context;
+  const db = env.BAROKAH_DB;
+  try {
+    const input = await request.json();
+    const { nama, whatsapp, paket, rencana } = input;
+    if (!nama || !whatsapp) {
+      return new Response(JSON.stringify({ error: "Nama dan WhatsApp wajib diisi" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+    await db.prepare(
+      "INSERT INTO pendaftaran (nama, whatsapp, paket, rencana_keberangkatan) VALUES (?, ?, ?, ?)"
+    ).bind(nama, whatsapp, paket || "Belum Memilih", rencana || "Segera").run();
+    return new Response(JSON.stringify({
+      success: true,
+      message: "Alhamdulillah, data pendaftaran Anda telah kami terima. Tim kami akan segera menghubungi Anda."
+    }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    });
+  } catch (err) {
+    return new Response(JSON.stringify({
+      error: "Gagal menyimpan data",
+      details: err.message
+    }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+}
+__name(onRequestPost, "onRequestPost");
+
+// api/check-status.js
+var import_checked_fetch2 = __toESM(require_checked_fetch());
 async function onRequest(context) {
   const { env } = context;
   const db = env.BAROKAH_DB;
@@ -89,7 +125,7 @@ async function onRequest(context) {
 __name(onRequest, "onRequest");
 
 // _middleware.js
-var import_checked_fetch2 = __toESM(require_checked_fetch());
+var import_checked_fetch3 = __toESM(require_checked_fetch());
 async function onRequest2(context) {
   try {
     const { request, next, env } = context;
@@ -120,6 +156,13 @@ __name(onRequest2, "onRequest");
 // ../.wrangler/tmp/pages-txeKo0/functionsRoutes-0.25618983000482165.mjs
 var routes = [
   {
+    routePath: "/api/register",
+    mountPath: "/api",
+    method: "POST",
+    middlewares: [],
+    modules: [onRequestPost]
+  },
+  {
     routePath: "/api/check-status",
     mountPath: "/api",
     method: "",
@@ -135,17 +178,17 @@ var routes = [
   }
 ];
 
-// ../.wrangler/tmp/bundle-wx53mp/middleware-loader.entry.ts
-var import_checked_fetch9 = __toESM(require_checked_fetch());
+// ../.wrangler/tmp/bundle-m1qaXe/middleware-loader.entry.ts
+var import_checked_fetch10 = __toESM(require_checked_fetch());
 
-// ../.wrangler/tmp/bundle-wx53mp/middleware-insertion-facade.js
-var import_checked_fetch7 = __toESM(require_checked_fetch());
+// ../.wrangler/tmp/bundle-m1qaXe/middleware-insertion-facade.js
+var import_checked_fetch8 = __toESM(require_checked_fetch());
 
 // ../node_modules/wrangler/templates/pages-template-worker.ts
-var import_checked_fetch4 = __toESM(require_checked_fetch());
+var import_checked_fetch5 = __toESM(require_checked_fetch());
 
 // ../node_modules/path-to-regexp/dist.es2015/index.js
-var import_checked_fetch3 = __toESM(require_checked_fetch());
+var import_checked_fetch4 = __toESM(require_checked_fetch());
 function lexer(str) {
   var tokens = [];
   var i = 0;
@@ -592,7 +635,7 @@ var cloneResponse = /* @__PURE__ */ __name((response) => (
 ), "cloneResponse");
 
 // ../node_modules/wrangler/templates/middleware/middleware-ensure-req-body-drained.ts
-var import_checked_fetch5 = __toESM(require_checked_fetch());
+var import_checked_fetch6 = __toESM(require_checked_fetch());
 var drainBody = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx) => {
   try {
     return await middlewareCtx.next(request, env);
@@ -611,7 +654,7 @@ var drainBody = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 var middleware_ensure_req_body_drained_default = drainBody;
 
 // ../node_modules/wrangler/templates/middleware/middleware-miniflare3-json-error.ts
-var import_checked_fetch6 = __toESM(require_checked_fetch());
+var import_checked_fetch7 = __toESM(require_checked_fetch());
 function reduceError(e) {
   return {
     name: e?.name,
@@ -634,7 +677,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// ../.wrangler/tmp/bundle-wx53mp/middleware-insertion-facade.js
+// ../.wrangler/tmp/bundle-m1qaXe/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -642,7 +685,7 @@ var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
 var middleware_insertion_facade_default = pages_template_worker_default;
 
 // ../node_modules/wrangler/templates/middleware/common.ts
-var import_checked_fetch8 = __toESM(require_checked_fetch());
+var import_checked_fetch9 = __toESM(require_checked_fetch());
 var __facade_middleware__ = [];
 function __facade_register__(...args) {
   __facade_middleware__.push(...args.flat());
@@ -667,7 +710,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// ../.wrangler/tmp/bundle-wx53mp/middleware-loader.entry.ts
+// ../.wrangler/tmp/bundle-m1qaXe/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;

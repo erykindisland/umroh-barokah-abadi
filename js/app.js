@@ -39,14 +39,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Handle Next Steps/Submit
     nextBtns.forEach((btn, index) => {
-        btn.addEventListener('click', () => {
-            // Validate if selection made
+        btn.addEventListener('click', async () => {
             const currentStep = formSteps[index];
-            const hasSelection = currentStep.querySelector('input[type="radio"]:checked');
             
-            if (!hasSelection && index < nextBtns.length) {
-                alert('Silakan pilih salah satu opsi untuk melanjutkan bimbingan.');
-                return;
+            // Validate Step 1 & 2 (Radios)
+            if (index < 2) {
+                const hasSelection = currentStep.querySelector('input[type="radio"]:checked');
+                if (!hasSelection) {
+                    alert('Silakan pilih salah satu opsi untuk melanjutkan bimbingan.');
+                    return;
+                }
+            }
+
+            // Validate Step 3 (Inputs)
+            if (btn.id === 'btn-submit-planner') {
+                const nama = document.getElementById('user-nama').value;
+                const wa = document.getElementById('user-wa').value;
+                if (!nama || !wa) {
+                    alert('Mohon lengkapi Nama dan nomor WhatsApp Anda.');
+                    return;
+                }
             }
 
             // Hide current, show next
@@ -59,50 +71,66 @@ document.addEventListener('DOMContentLoaded', () => {
                 const resultStep = document.getElementById('step-result');
                 resultStep.style.display = 'block';
                 
-                // Simulate processing
-                setTimeout(() => {
-                    const who = document.querySelector('input[name="who"]:checked').value;
-                    const when = document.querySelector('input[name="when"]:checked').value;
-                    
-                    const spinner = resultStep.querySelector('h3');
-                    spinner.innerHTML = '<i class="ph-fill ph-check-circle text-gold"></i> Rekomendasi Ditemukan!';
-                    
-                    const resultContent = document.getElementById('ai-result-content');
-                    
-                    // Simple logic based on selection
-                    let recommendation = '';
-                    if (who === 'Keluarga' || who === 'Group') {
-                        recommendation = `
-                            <div class="ai-card">
-                                <h4>Paket VIP Ramah Lansia (Rabbani Tour)</h4>
-                                <p>Berdasarkan kebutuhan rombongan/keluarga di waktu ${when}, kami merekomendasikan paket dengan fasilitas bus *low-deck* dan jarak hotel ke pelataran masjid kurang dari 50 meter.</p>
-                                <button class="btn btn-primary w-100 open-wa" data-wa="rabbani">Konsultasikan Paket Ini <i class="ph ph-whatsapp-logo"></i></button>
-                            </div>
-                        `;
-                    } else if (who === 'Pasangan') {
-                        recommendation = `
-                            <div class="ai-card">
-                                <h4>Paket Honeymoon/Couple (Alhijaz)</h4>
-                                <p>Untuk pasangan di waktu ${when}, paket kamar *Double* (berdua) di Zamzam Tower memberikan kenyamanan optimal dan keintiman ibadah.</p>
-                                <button class="btn btn-primary w-100 open-wa" data-wa="alhijaz">Amankan Kursi Pasangan <i class="ph ph-whatsapp-logo"></i></button>
-                            </div>
-                        `;
-                    } else {
-                        recommendation = `
-                            <div class="ai-card">
-                                <h4>Paket Umroh Mandiri & Milenial (Umrah Companions)</h4>
-                                <p>Untuk keberangkatan pribadi/mandiri di waktu ${when}, paket ini menawarkan fleksibilitas tertinggi dan *budget* yang efisien.</p>
-                                <button class="btn btn-primary w-100 open-wa" data-wa="companions">Tanya Detail Estimasi <i class="ph ph-whatsapp-logo"></i></button>
-                            </div>
-                        `;
-                    }
-                    
-                    resultContent.innerHTML = recommendation;
-                    
-                    // Re-bind WA buttons for newly injected DOM
-                    bindWAButtons();
+                // --- INTEGRASI API ---
+                const rawWho = document.querySelector('input[name="who"]:checked')?.value;
+                const rawWhen = document.querySelector('input[name="when"]:checked')?.value;
+                const rawNama = document.getElementById('user-nama').value;
+                const rawWa = document.getElementById('user-wa').value;
 
-                }, 1500);
+                try {
+                    const response = await fetch('/api/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            nama: rawNama,
+                            whatsapp: rawWa,
+                            paket: `Siapa: ${rawWho}`,
+                            rencana: `Kapan: ${rawWhen}`
+                        })
+                    });
+                    const resData = await response.json();
+                    console.log('Registration success:', resData);
+                } catch (err) {
+                    console.error('API Error:', err);
+                }
+
+                // Show Recommendation
+                const resultContent = document.getElementById('ai-result-content');
+                let recommendation = '';
+                if (rawWho === 'Keluarga' || rawWho === 'Group') {
+                    recommendation = `
+                        <div class="ai-card animate-fade-in">
+                            <h4><i class="ph-fill ph-check-circle text-gold"></i> Paket VIP Ramah Lansia (Rabbani Tour)</h4>
+                            <p>Berdasarkan kebutuhan Anda untuk ${rawWho} di waktu ${rawWhen}, kami merekomendasikan paket dengan fasilitas bus *low-deck* dan jarak hotel ke pelataran masjid kurang dari 50 meter.</p>
+                            <p class="mt-1 text-success">Alhamdulillah, data Anda sudah kami simpan. Tim kami akan segera menghubungi <strong>${rawNama}</strong> via WhatsApp.</p>
+                            <button class="btn btn-primary w-100 open-wa mt-2" data-wa="rabbani">Lanjut Konsultasi via WA <i class="ph ph-whatsapp-logo"></i></button>
+                        </div>
+                    `;
+                } else if (rawWho === 'Pasangan') {
+                    recommendation = `
+                        <div class="ai-card animate-fade-in">
+                            <h4><i class="ph-fill ph-check-circle text-gold"></i> Paket Honeymoon/Couple (Alhijaz)</h4>
+                            <p>Untuk Anda berdua di waktu ${rawWhen}, paket kamar *Double* di Zamzam Tower memberikan kenyamanan optimal.</p>
+                            <p class="mt-1 text-success">Data pendaftaran <strong>${rawNama}</strong> berhasil dikirim!</p>
+                            <button class="btn btn-primary w-100 open-wa mt-2" data-wa="alhijaz">Amankan Kursi via WA <i class="ph ph-whatsapp-logo"></i></button>
+                        </div>
+                    `;
+                } else {
+                    recommendation = `
+                        <div class="ai-card animate-fade-in">
+                            <h4><i class="ph-fill ph-check-circle text-gold"></i> Paket Umroh Milenial (Umrah Companions)</h4>
+                            <p>Untuk keberangkatan ${rawWho} di waktu ${rawWhen}, paket ini menawarkan fleksibilitas tertinggi dan budget efisien.</p>
+                            <p class="mt-1 text-success">Terima kasih <strong>${rawNama}</strong>, tim bimbingan kami akan segera menghubungi Anda.</p>
+                            <button class="btn btn-primary w-100 open-wa mt-2" data-wa="companions">Tanya Detail via WA <i class="ph ph-whatsapp-logo"></i></button>
+                        </div>
+                    `;
+                }
+                
+                resultContent.innerHTML = recommendation;
+                const spinner = resultStep.querySelector('h3');
+                spinner.style.display = 'none';
+
+                bindWAButtons();
             }
         });
     });
