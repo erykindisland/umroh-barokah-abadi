@@ -214,11 +214,32 @@ ul {
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     color: var(--gold-accent);
+    text-decoration: none;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.brand-name {
     font-family: var(--font-heading);
     font-size: 1.4rem;
-    font-weight: 600;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.5px;
+}
+
+.brand-tagline {
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--text-light);
+    opacity: 0.9;
+    letter-spacing: 0.2px;
 }
 
 .logo i {
@@ -1099,6 +1120,14 @@ footer ul li a:hover {
 
     .bimbingan-container {
         grid-template-columns: 1fr;
+    }
+
+    .brand-name {
+        font-size: 1.2rem;
+    }
+
+    .brand-tagline {
+        font-size: 0.75rem;
     }
 }
 
