@@ -142,8 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'alhijaz': '628881211529',
         'rabbani': '628881211529',
         'nusa': '628881211529',
-        'companions': '628881211529',
-        'alnihaya': '628881211529'
+        'companions': '628881211529'
     };
 
     const waMessages = {
@@ -151,8 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'alhijaz': 'Assalamu’alaikum, saya tertarik dan ingin mengamankan kursi untuk Paket Alhijaz Indowisata.',
         'rabbani': 'Assalamu’alaikum, mohon informasi lebih lanjut mengenai paket dari Rabbani Tour.',
         'nusa': 'Assalamu’alaikum, saya ingin mengetahui program kemitraan/paket menarik dari Nusa Travel.',
-        'companions': 'Assalamu’alaikum, saya ingin info mengenai program backpacker/milenial dari Umrah Companions.',
-        'alnihaya': 'Assalamu’alaikum, saya ingin menanyakan ketersediaan seat di Alnihaya Wisata Abadi.'
+        'companions': 'Assalamu’alaikum, saya ingin info mengenai program backpacker/milenial dari Umrah Companions.'
     };
 
     function bindWAButtons() {
